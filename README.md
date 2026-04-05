@@ -300,6 +300,115 @@ O preço deve ser definido no momento da criação do objeto e apenas exibido po
 
 ---
 
+**Prompt 5**
+
+<ins>Pergunta:</ins>  
+Estou fazendo na classe `Computador` um setter para adicionar um `HardwareBasico` no array de `HardwareBasico`. Fiz esse código, mas está dando erro, qual é o problema?
+
+```java
+public void setHardBasicos(HardwareBasico hb) {
+    for(int i=0; i< hardBasicos.length; i++){
+        if(hardBasicos[i] == null) {
+            hardBasicos[i] = hb;
+```
+
+<ins>Resposta:</ins>  
+
+O problema do seu código não está na lógica principal, mas sim em detalhes de implementação que podem gerar erro de compilação ou comportamento inesperado.
+
+1. Problema mais provável: método incompleto
+
+O código enviado está sem as chaves de fechamento `}`.
+
+O correto seria:
+
+```java
+public void setHardBasicos(HardwareBasico hb) {
+    for(int i = 0; i < hardBasicos.length; i++) {
+        if(hardBasicos[i] == null) {
+            hardBasicos[i] = hb;
+            break;
+        }
+    }
+}
+```
+
+Sem essas chaves, o código não compila corretamente.
+
+2. Falta do `break`
+
+Mesmo depois de inserir o hardware em uma posição vazia, o laço continuaria executando.
+
+Isso pode causar problemas lógicos, por isso o ideal é usar:
+
+```java
+break;
+```
+
+Assim, o método encerra assim que encontrar a primeira posição livre.
+
+3. Verificar se o array foi inicializado
+
+Outro problema muito comum é declarar o array, mas não inicializá-lo:
+
+```java
+private HardwareBasico[] hardBasicos;
+```
+
+Se isso acontecer, ao tentar acessar `hardBasicos.length`, o programa poderá gerar `NullPointerException`.
+
+O correto é inicializar o array, por exemplo:
+
+```java
+private HardwareBasico[] hardBasicos = new HardwareBasico[3];
+```
+
+Forma correta completa
+
+Na classe:
+
+```java
+private HardwareBasico[] hardBasicos = new HardwareBasico[3];
+```
+
+Método:
+
+```java
+public void setHardBasicos(HardwareBasico hb) {
+    for(int i = 0; i < hardBasicos.length; i++) {
+        if(hardBasicos[i] == null) {
+            hardBasicos[i] = hb;
+            break;
+        }
+    }
+}
+```
+
+Observação importante sobre o nome do método
+
+O nome `setHardBasicos` pode ser confuso, porque métodos `set` normalmente servem para substituir um valor inteiro.
+
+Neste caso, o método está adicionando um item ao array, e não trocando o array completo.
+
+Por isso, um nome mais adequado seria:
+
+```java
+addHardwareBasico
+```
+
+Conclusão
+
+Os possíveis problemas no seu código são:
+
+- falta de chaves `}` → erro de compilação  
+- falta do `break` → erro lógico  
+- array não inicializado → `NullPointerException`  
+- nome do método pouco adequado à função  
+
+Portanto, a lógica de adicionar o hardware está correta, mas o método precisa estar completo, com o array inicializado e, de preferência, com um nome mais coerente com sua finalidade.
+
+---
+
 **Conclusão**
 
 A utilização da Inteligência Artificial, ao longo do desenvolvimento deste trabalho, mostrou-se bastante satisfatória, especialmente nos momentos em que surgiram dúvidas conceituais e estruturais.
