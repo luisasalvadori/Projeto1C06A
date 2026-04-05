@@ -213,6 +213,93 @@ Essa solução é adequada, organizada e alinhada com os princípios da Programa
 
 ---
 
+**Prompt 4**
+
+<ins>Pergunta:</ins>  
+Tenho uma última dúvida, gostaria de colocar o preço individual de cada computador no momento de mostrar as configurações (onde está o método mostraPCConfigs). Como o preço depende da marca, eu devo fazer uma estrutura de if-else ou switch dentro desse método para identificar o preço?
+
+<ins>Resposta:</ins>  
+Não é recomendado usar if-else ou switch dentro do método mostraPCConfigs para determinar o preço com base na marca.
+
+Por quê?  
+
+Porque isso violaria um princípio importante da Programação Orientada a Objetos: encapsulamento.
+
+A classe Computador já possui o atributo preço. Logo, o valor do preço deve ser:
+
+- definido no momento da criação do objeto  
+- armazenado dentro do próprio objeto  
+- apenas exibido quando necessário  
+
+Se você usar if-else ou switch baseado na marca, estará:
+
+- duplicando lógica que já foi definida antes  
+- tornando o código menos flexível  
+- criando dependência entre “marca” e “preço” dentro de um método que deveria apenas exibir informações  
+
+Forma correta  
+
+O preço já foi definido quando você criou o objeto:
+
+```java
+Computador pc1 = new Computador("Apple", preco1);
+```
+
+Portanto, dentro do método mostraPCConfigs, você deve apenas exibir o preço armazenado.
+
+Exemplo de implementação  
+
+```java
+public void mostraPCConfigs() {
+    System.out.println("Marca: " + marca);
+    System.out.println("Preço: R$" + preco);
+
+    // mostrar hardware
+    for (int i = 0; i < hardwares.length; i++) {
+        System.out.println(hardwares[i].getNome() + " - " + hardwares[i].getCapacidade());
+    }
+
+    // mostrar sistema operacional
+    System.out.println("Sistema Operacional: " + sistOp.getNome());
+
+    // mostrar USB
+    System.out.println("Acompanha: " + musb.getNome());
+}
+```
+
+O que NÃO fazer  
+
+```java
+if (marca.equals("Apple")) {
+    preco = matricula;
+} else if (marca.equals("Samsung")) {
+    preco = matricula + 1234;
+}
+```
+
+Esse tipo de lógica está no lugar errado.
+
+Onde o preço deve ser definido?  
+
+No momento da criação do objeto (como você já fez na classe Loja):
+
+```java
+Computador pc1 = new Computador("Apple", preco1);
+```
+
+Ideia principal  
+
+- Computador sabe seu preço  
+- mostraPCConfigs só exibe informações  
+- lógica de cálculo de preço fica fora do método de exibição  
+
+Conclusão  
+
+Não utilize if-else ou switch para definir o preço no método de exibição.  
+O preço deve ser definido no momento da criação do objeto e apenas exibido posteriormente, garantindo um código mais organizado, coerente e alinhado com os princípios da orientação a objetos.
+
+---
+
 **Conclusão**
 
 A utilização da Inteligência Artificial, ao longo do desenvolvimento deste trabalho, mostrou-se bastante satisfatória, especialmente nos momentos em que surgiram dúvidas conceituais e estruturais.
